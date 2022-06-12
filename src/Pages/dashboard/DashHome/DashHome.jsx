@@ -23,6 +23,7 @@ import { API } from "../../../Utils/API";
 import { Grid, MenuItem, Select, TextField, Button } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
+import { Pagination } from "react-bootstrap";
 
 // const rows = [];
 
@@ -260,48 +261,88 @@ export default function EnhancedTable() {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
   const [rows, setRow] = useState([]);
-const match = {}
-const handleSubmit = () => {
-  match[searchSelect] = searchBox
-  axios.post(`${API}/admin/forms`,{match}, {
-    headers: {
-      authorization: localStorage.getItem("token"),
-    },
-  })
-  .then((res) => {
-    console.log(res);
-    setRow(res.data);
-  });
-}
-const handleSubmitDate = () => {
-  match[searchSelect] = selectedDate
-  axios.post(`${API}/admin/forms`,{match}, {
-    headers: {
-      authorization: localStorage.getItem("token"),
-    },
-  })
-  .then((res) => {
-    console.log(res);
-    setRow(res.data);
-  });
-}
-
-useEffect(() => {
+  const [page, setPage] = useState(1);
+  const [TotalData, setTotalData] = useState();
+  const[DataSkip,setDataSkip]=useState(0)
+  let dataLimit = 5;
+  let TotalPages = Math.ceil(TotalData / dataLimit);
+  console.log(TotalPages);
+  const [pages, setPages] = useState();
+  const match = {};
+  const handleSubmit = () => {
+    match[searchSelect] = searchBox;
     axios
-      .post(`${API}/admin/forms`,{}, {
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
-      })
+      .post(
+        `${API}/admin/forms`,
+        { match },
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         setRow(res.data);
       });
-  }, []);
+  };
+  const handleSubmitDate = () => {
+    match[searchSelect] = selectedDate;
+    axios
+      .post(
+        `${API}/admin/forms`,
+        { match },
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        setRow(res.data);
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .post(
+        `${API}/admin/forms?skip=${DataSkip}&limit=5`,
+        {},
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setRow(res.data[0].forms);
+        setTotalData(res.data[0].total);
+        setPages(Math.ceil(res.data[0].total / dataLimit));
+      });
+  }, [page]);
   useEffect(() => {});
   const searchChange = (e) => {
     setSearchSelect(e.target.value);
   };
+
+  let active = page;
+  let items = [];
+  for (let number = 1; number <= pages; number++) {
+    items.push(
+      <Pagination.Item
+        onClick={() => {
+          setPage(number);
+          setDataSkip((number-1)*dataLimit)
+        }}
+        key={number}
+        active={number === active}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+  console.log(items);
   // Avoid a layout jump when reaching the last page with empty rows.
   return (
     <Box sx={{ width: "100%", p: 2 }}>
@@ -319,17 +360,17 @@ useEffect(() => {
               onChange={searchChange}
             >
               <MenuItem value={0}>انتخاب کنید</MenuItem>
-              <MenuItem value={'operator'}>اپراتور</MenuItem>
-              <MenuItem value={'clientFirstName'}>نام مشتری</MenuItem>
-              <MenuItem value={'clientLastName'}>نام خانوادگی مشتری</MenuItem>
-              <MenuItem value={'Gender'}>جنسیت</MenuItem>
-              <MenuItem value={'nationalCode'}>کد ملی</MenuItem>
-              <MenuItem value={'clientNumber'}>شماره مشتری</MenuItem>
-              <MenuItem value={'serviceDate'}>تاریخ</MenuItem>
+              <MenuItem value={"operator"}>اپراتور</MenuItem>
+              <MenuItem value={"clientFirstName"}>نام مشتری</MenuItem>
+              <MenuItem value={"clientLastName"}>نام خانوادگی مشتری</MenuItem>
+              <MenuItem value={"Gender"}>جنسیت</MenuItem>
+              <MenuItem value={"nationalCode"}>کد ملی</MenuItem>
+              <MenuItem value={"clientNumber"}>شماره مشتری</MenuItem>
+              <MenuItem value={"serviceDate"}>تاریخ</MenuItem>
             </Select>
           </Grid>
           <Grid item xs={8}>
-            {searchSelect !== 'serviceDate' ? (
+            {searchSelect !== "serviceDate" ? (
               <TextField
                 disabled={
                   searchSelect !== 0 && searchSelect !== "0" ? false : true
@@ -337,15 +378,16 @@ useEffect(() => {
                 label={` جستجو ${
                   searchSelect === 0
                     ? "..."
-                    : searchSelect === 'operator'
+                    : searchSelect === "operator"
                     ? "در اپراتورها"
-                    : searchSelect === 'clientFirstName' && searchSelect === 'clientLastName' 
+                    : searchSelect === "clientFirstName" &&
+                      searchSelect === "clientLastName"
                     ? "نام مشتریان"
-                    : searchSelect === 'Gender'
+                    : searchSelect === "Gender"
                     ? "جنسیت"
-                    : searchSelect === 'nationalCode'
+                    : searchSelect === "nationalCode"
                     ? "کد ملی"
-                    : searchSelect === 'clientNumber'
+                    : searchSelect === "clientNumber"
                     ? "شماره مشتری"
                     : "..."
                 }`}
@@ -381,18 +423,23 @@ useEffect(() => {
             )}
           </Grid>
           <Grid item xs={2}>
-            {searchSelect !== 'serviceDate' ? (
+            {searchSelect !== "serviceDate" ? (
               <Button
                 fullWidth
                 color="info"
                 variant="contained"
-                disabled={searchBox === "" ?  true : false}
+                disabled={searchBox === "" ? true : false}
                 onClick={handleSubmit}
               >
                 جستجو
               </Button>
             ) : (
-              <Button fullWidth color="info" variant="contained" onClick={handleSubmitDate}>
+              <Button
+                fullWidth
+                color="info"
+                variant="contained"
+                onClick={handleSubmitDate}
+              >
                 جستجو
               </Button>
             )}
@@ -441,9 +488,9 @@ useEffect(() => {
                           : null}
                       </TableCell>
                       <TableCell align="center">
-                        {row.bodyParts.map((body) => (
+                        {/* {row.bodyParts.map((body) => (
                           <Box>{body}</Box>
-                        ))}{" "}
+                        ))}{" "} */}
                       </TableCell>
                       <TableCell align="center">{row.sessionNumber}</TableCell>
                       <TableCell align="center">
@@ -469,6 +516,9 @@ useEffect(() => {
           </Table>
         </TableContainer>
       </Paper>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Pagination>{items}</Pagination>
+      </Box>
     </Box>
   );
 }
