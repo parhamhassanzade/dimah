@@ -24,7 +24,7 @@ import { Grid, MenuItem, Select, TextField, Button } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { Pagination } from "react-bootstrap";
-
+import ReplayIcon from "@mui/icons-material/Replay";
 // const rows = [];
 
 function descendingComparator(a, b, orderBy) {
@@ -198,14 +198,23 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          لیست مشتریان
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            لیست مشتریان
+          </Typography>
+          <IconButton
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            <ReplayIcon />
+          </IconButton>
+        </Box>
       )}
     </Toolbar>
   );
@@ -263,7 +272,7 @@ export default function EnhancedTable() {
   const [rows, setRow] = useState([]);
   const [page, setPage] = useState(1);
   const [TotalData, setTotalData] = useState();
-  const[DataSkip,setDataSkip]=useState(0)
+  const [DataSkip, setDataSkip] = useState(0);
   let dataLimit = 5;
   let TotalPages = Math.ceil(TotalData / dataLimit);
   console.log(TotalPages);
@@ -333,7 +342,7 @@ export default function EnhancedTable() {
       <Pagination.Item
         onClick={() => {
           setPage(number);
-          setDataSkip((number-1)*dataLimit)
+          setDataSkip((number - 1) * dataLimit);
         }}
         key={number}
         active={number === active}
@@ -342,7 +351,6 @@ export default function EnhancedTable() {
       </Pagination.Item>
     );
   }
-  console.log(items);
   // Avoid a layout jump when reaching the last page with empty rows.
   return (
     <Box sx={{ width: "100%", p: 2 }}>
