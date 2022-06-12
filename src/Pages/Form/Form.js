@@ -90,7 +90,7 @@ function Form(props) {
       bodyParts: [],
       sessionNumber: 0,
       sessionFee: 0,
-      clientNumber:0
+      clientNumber: 0,
     },
     onSubmit: (values, { resetForm }) => {
       axios
@@ -116,7 +116,9 @@ function Form(props) {
             progress: undefined,
           });
         });
-      resetForm();
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     },
   });
   const spotSize = [
@@ -203,7 +205,7 @@ function Form(props) {
       <Grid item xs={12}>
         <div className="w-100 d-flex justify-content-center align-items-center flex-wrap ">
           <span className="brandName form-title w-100 text-center mt-5 h2 ">
-            مرکز لیزر دیماه
+           مرکز لیزر دیماه تابان
           </span>
           {/* <img src={logo} width="80px" className="logo " alt='' /> */}
         </div>
