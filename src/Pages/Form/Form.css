@@ -1,0 +1,16 @@
+.form-page{
+    height: 100%;
+    overflow: scroll;
+}
+.form-title{
+    color:rgb(191, 141, 56) ;
+
+}
+.form-main{
+    background-color: white;
+    border-radius: 1rem;
+    /* border: 1px solid black; */
+    /* margin: 1.5rem 6rem 0 !important; */
+    padding: 2rem;
+    box-shadow: 1px 1px 40px rgb(226, 203, 163);
+}

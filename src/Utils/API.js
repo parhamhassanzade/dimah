@@ -1,0 +1,1 @@
+export const API = 'https://app.dimahtaban.com/api'

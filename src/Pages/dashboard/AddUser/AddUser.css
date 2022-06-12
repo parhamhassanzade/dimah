@@ -1,0 +1,15 @@
+.chart-input{
+    direction: rtl !important;
+   
+}
+.formLable{
+    direction: rtl !important;
+    text-align: right;
+}
+.formInputs{
+    width: 45% !important;
+    margin: 0.5rem 1rem;
+}
+.formButtons{
+    width: 93%;
+}
