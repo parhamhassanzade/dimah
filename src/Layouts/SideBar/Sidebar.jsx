@@ -25,7 +25,7 @@ function Sidebar(props) {
       <div className="LogoPosition d-flex justify-content-center align-items-center flex-wrap mt-2">
         {/* <img src={logo} width="60px" className="logo" alt="" /> */}
         <span className="brandName text-light w-100 text-center mt-2">
-           مرکز تخصصی دیماه تابان
+           مرکز تخصصی مرکز لیزر
         </span>
       </div>
       <div className="Menu">
@@ -57,13 +57,7 @@ function Sidebar(props) {
           </NavLink>
         </ul>
       </div>
-      <div className="support">
-        <p>
-          دكترسجادنظري <br></br>جراح ومتخصص پوست ومو <br></br>کاشت ابرو، مو،ریش{" "}
-          <br></br>تزریق ژل بوتاکس لیزرموي زائد<br></br> لیزرجوانسازی،<br></br>
-          ریموتاتو،زنان
-        </p>
-      </div>
+  
     </div>
   );
 }

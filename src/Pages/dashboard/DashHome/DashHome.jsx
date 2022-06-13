@@ -188,16 +188,7 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
+
         <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
           <Typography
             sx={{ flex: "1 1 100%" }}
@@ -215,7 +206,7 @@ const EnhancedTableToolbar = (props) => {
             <ReplayIcon />
           </IconButton>
         </Box>
-      )}
+    
     </Toolbar>
   );
 };
@@ -485,20 +476,20 @@ export default function EnhancedTable() {
                     >
                       <TableCell align="center">{row.sessionFee}</TableCell>
                       <TableCell align="center">
-                        {row.laserKind === "javansazi"
+                        {row.laserKind.kind === "javansazi"
                           ? "جوانسازی"
-                          : row.laserKind === "moo-zaed"
+                          : row.laserKind.kind === "moo-zaed"
                           ? "موهای زائد"
-                          : row.laserKind === "tatoo"
+                          : row.laserKind.kind === "tatoo"
                           ? "رفع تتو"
-                          : row.laserKind === "female"
+                          : row.laserKind.kind === "female"
                           ? "زنان"
                           : null}
                       </TableCell>
                       <TableCell align="center">
-                        {/* {row.bodyParts.map((body) => (
+                        {row.bodyParts.map((body) => (
                           <Box>{body}</Box>
-                        ))}{" "} */}
+                        ))}{" "}
                       </TableCell>
                       <TableCell align="center">{row.sessionNumber}</TableCell>
                       <TableCell align="center">

@@ -205,7 +205,7 @@ function Form(props) {
       <Grid item xs={12}>
         <div className="w-100 d-flex justify-content-center align-items-center flex-wrap ">
           <span className="brandName form-title w-100 text-center mt-5 h2 ">
-           مرکز لیزر دیماه تابان
+           مرکز لیزر مرکز لیزر
           </span>
           {/* <img src={logo} width="80px" className="logo " alt='' /> */}
         </div>
