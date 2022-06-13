@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import "./Form.css";
 import logo from "../../assets/img/dimah.jpeg";
 import {
@@ -42,6 +42,10 @@ function Form(props) {
   const [open, setOpen] = React.useState(false);
   const [selectedTime, setTime] = React.useState(new Date());
   const [selectedDate, handleDateChange] = React.useState(new Date());
+  const [userfullname, setuserfullname] = useState();
+  useEffect(() => {
+    setuserfullname(localStorage.getItem("userInfo"));
+  }, []);
 
   function separate(Number) {
     Number += "";
@@ -205,7 +209,7 @@ function Form(props) {
       <Grid item xs={12}>
         <div className="w-100 d-flex justify-content-center align-items-center flex-wrap ">
           <span className="brandName form-title w-100 text-center mt-5 h2 ">
-           مرکز لیزر مرکز لیزر
+            مرکز لیزر مرکز لیزر
           </span>
           {/* <img src={logo} width="80px" className="logo " alt='' /> */}
         </div>
@@ -221,8 +225,8 @@ function Form(props) {
             }}
             className="form-main"
           >
-            :: شما با نام کاربری .: {localStorage.getItem("username")} :. وارد
-            شده اید ::
+          
+            {userfullname} عزیز خوش امدین
             <Button
               variant="contained"
               color="error"

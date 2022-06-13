@@ -188,25 +188,23 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-
-        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            لیست مشتریان
-          </Typography>
-          <IconButton
-            onClick={() => {
-              window.location.reload();
-            }}
-          >
-            <ReplayIcon />
-          </IconButton>
-        </Box>
-    
+      <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+        <Typography
+          sx={{ flex: "1 1 100%" }}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          لیست مشتریان
+        </Typography>
+        <IconButton
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          <ReplayIcon />
+        </IconButton>
+      </Box>
     </Toolbar>
   );
 };
@@ -264,6 +262,7 @@ export default function EnhancedTable() {
   const [page, setPage] = useState(1);
   const [TotalData, setTotalData] = useState();
   const [DataSkip, setDataSkip] = useState(0);
+  const [showPagination, setShowPaginatopn] = useState(true);
   let dataLimit = 5;
   let TotalPages = Math.ceil(TotalData / dataLimit);
   console.log(TotalPages);
@@ -282,8 +281,10 @@ export default function EnhancedTable() {
         }
       )
       .then((res) => {
-        console.log(res);
-        setRow(res.data);
+        setRow(res.data[0].forms);
+        setTotalData(res.data[0].total);
+        setPages(Math.ceil(res.data[0].total / dataLimit));
+        setShowPaginatopn(false);
       });
   };
   const handleSubmitDate = () => {
@@ -299,8 +300,11 @@ export default function EnhancedTable() {
         }
       )
       .then((res) => {
-        console.log(res);
-        setRow(res.data);
+        console.log(res.data[0].forms);
+        setRow(res.data[0].forms);
+        setTotalData(res.data[0].total);
+        setPages(Math.ceil(res.data[0].total / dataLimit));
+        setShowPaginatopn(false);
       });
   };
 
@@ -461,8 +465,9 @@ export default function EnhancedTable() {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy)).map(
-                (row, index) => {
+              {/* {stableSort(rows, getComparator(order, orderBy)).map( */}
+              {rows &&
+                rows.map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   return (
                     <TableRow
@@ -476,18 +481,18 @@ export default function EnhancedTable() {
                     >
                       <TableCell align="center">{row.sessionFee}</TableCell>
                       <TableCell align="center">
-                        {row.laserKind.kind === "javansazi"
+                        {row.laserKind?.kind === "javansazi"
                           ? "جوانسازی"
-                          : row.laserKind.kind === "moo-zaed"
+                          : row.laserKind?.kind === "moo-zaed"
                           ? "موهای زائد"
-                          : row.laserKind.kind === "tatoo"
+                          : row.laserKind?.kind === "tatoo"
                           ? "رفع تتو"
-                          : row.laserKind.kind === "female"
+                          : row.laserKind?.kind === "female"
                           ? "زنان"
                           : null}
                       </TableCell>
                       <TableCell align="center">
-                        {row.bodyParts.map((body) => (
+                        {row.bodyParts?.map((body) => (
                           <Box>{body}</Box>
                         ))}{" "}
                       </TableCell>
@@ -509,15 +514,16 @@ export default function EnhancedTable() {
                       <TableCell align="center">{row.operator}</TableCell>
                     </TableRow>
                   );
-                }
-              )}
+                })}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Pagination>{items}</Pagination>
-      </Box>
+      {showPagination && (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Pagination>{items}</Pagination>
+        </Box>
+      )}
     </Box>
   );
 }

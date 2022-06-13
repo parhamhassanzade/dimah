@@ -36,6 +36,8 @@ function Login(props) {
         localStorage.setItem("USID", res.data.user._id)
         localStorage.setItem("isAdmin", res.data.user.isAdmin)
         localStorage.setItem("username", res.data.user.username)
+        localStorage.setItem("userInfo", res.data.user.firstName+res.data.user.lastName)
+
         setTimeout(() => {
           
           res.data.user.isAdmin === true ? history.push("/dashboard") :res.data.user.isAdmin === false ? history.push("/form") : history.push("/") 
