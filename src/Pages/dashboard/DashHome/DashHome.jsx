@@ -13,18 +13,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 import { API } from "../../../Utils/API";
 import { Grid, MenuItem, Select, TextField, Button } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { Pagination } from "react-bootstrap";
 import ReplayIcon from "@mui/icons-material/Replay";
+import SearchModal from "./Components/SearchModal";
 // const rows = [];
 
 function descendingComparator(a, b, orderBy) {
@@ -198,11 +195,13 @@ const EnhancedTableToolbar = (props) => {
           لیست مشتریان
         </Typography>
         <IconButton
+          sx={{ display: "flex",flexDirection:"column",fontSize:"15px" }}
           onClick={() => {
             window.location.reload();
           }}
         >
           <ReplayIcon />
+          <small>پاک کردن جست و جو</small>
         </IconButton>
       </Box>
     </Toolbar>
@@ -372,7 +371,7 @@ export default function EnhancedTable() {
               <MenuItem value={"serviceDate"}>تاریخ</MenuItem>
             </Select>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={7}>
             {searchSelect !== "serviceDate" ? (
               <TextField
                 disabled={
@@ -425,7 +424,15 @@ export default function EnhancedTable() {
               </LocalizationProvider>
             )}
           </Grid>
-          <Grid item xs={2}>
+          <Grid
+            item
+            xs={3}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             {searchSelect !== "serviceDate" ? (
               <Button
                 fullWidth
@@ -446,6 +453,7 @@ export default function EnhancedTable() {
                 جستجو
               </Button>
             )}
+           <SearchModal/>
           </Grid>
         </Grid>
         <TableContainer sx={{ direction: "rtl" }}>
