@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -53,6 +52,7 @@ export default function SearchModal() {
             <div>
               <TextField id="outlined-required" label="اپراتور" />
               <TextField id="outlined-required" label="نام مشتری" />
+              <TextField id="outlined-required" label="نام خانوادگی مشتری" />
             </div>
             <div>
               <TextField id="outlined-required" label="جنسیت" />
@@ -83,11 +83,13 @@ export default function SearchModal() {
                 />
               </LocalizationProvider>
             </div>
-            <div>
-              <TextField id="outlined-required" label="نوع لیزر" />
-            </div>
-            <Box sx={{ display: "flex", justifyContent: "center",margin:"10px" }}>
-              <Button fullWidth variant="contained">جستجو</Button>
+
+            <Box
+              sx={{ display: "flex", justifyContent: "center", margin: "10px" }}
+            >
+              <Button fullWidth variant="contained">
+                جستجو
+              </Button>
             </Box>
           </Box>
         </Box>
