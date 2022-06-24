@@ -22,7 +22,7 @@ function Login(props) {
         password: password,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         toast.success("با موفقیت وارد شدید", {
           position: "top-center",
           autoClose: 5000,

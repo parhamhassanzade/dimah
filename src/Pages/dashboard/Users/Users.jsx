@@ -27,7 +27,7 @@ function Users() {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setData(res.data);
       });
   }, [reloader]);
@@ -46,7 +46,7 @@ function Users() {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setReloader(reloader + 1);
       });
   };
@@ -64,7 +64,7 @@ function Users() {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setReloader(reloader + 1);
       });
   };

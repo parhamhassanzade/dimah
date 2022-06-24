@@ -66,7 +66,7 @@ export default function EditModal({ openEdit, setOpenEdit,data,setData, props}) 
 
   const handleAddProduct=()=>{
     setOpenEdit(false);
-    console.log('add new pro');
+    // console.log('add new pro');
   }
 // console.log(product);
 

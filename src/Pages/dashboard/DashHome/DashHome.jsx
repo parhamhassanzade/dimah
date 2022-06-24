@@ -264,7 +264,7 @@ export default function EnhancedTable() {
   const [showPagination, setShowPaginatopn] = useState(true);
   let dataLimit = 5;
   let TotalPages = Math.ceil(TotalData / dataLimit);
-  console.log(TotalPages);
+  // console.log(TotalPages);
   const [pages, setPages] = useState();
   const match = {};
   const handleSubmit = () => {
@@ -299,7 +299,7 @@ export default function EnhancedTable() {
         }
       )
       .then((res) => {
-        console.log(res.data[0].forms);
+        // console.log(res.data[0].forms);
         setRow(res.data[0].forms);
         setTotalData(res.data[0].total);
         setPages(Math.ceil(res.data[0].total / dataLimit));
@@ -308,7 +308,7 @@ export default function EnhancedTable() {
   };
 
   const onSearch = (data) => {
-    console.log("search data", data);
+    // console.log("search data", data);
 
     axios
       .post(
@@ -321,7 +321,7 @@ export default function EnhancedTable() {
         }
       )
       .then((res) => {
-        console.log("ressearch", res);
+        // console.log("ressearch", res);
         if (res.data.status === 200) {
           setRow(res.data[0]?.forms);
           setTotalData(res.data[0]?.total);

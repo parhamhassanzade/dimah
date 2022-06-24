@@ -32,7 +32,7 @@ export default function SearchModal(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const searchPro = (values) => {
-    console.log(values);
+    // console.log(values);
   };
 
   const formik = useFormik({
