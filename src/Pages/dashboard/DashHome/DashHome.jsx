@@ -195,7 +195,7 @@ const EnhancedTableToolbar = (props) => {
           لیست مشتریان
         </Typography>
         <IconButton
-          sx={{ display: "flex",flexDirection:"column",fontSize:"15px" }}
+          sx={{ display: "flex", flexDirection: "column", fontSize: "15px" }}
           onClick={() => {
             window.location.reload();
           }}
@@ -307,6 +307,28 @@ export default function EnhancedTable() {
       });
   };
 
+  const onSearch = (data) => {
+    console.log("search data", data);
+
+    axios
+      .post(
+        `${API}/admin/forms`,
+        { data },
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        console.log("ressearch", res);
+        if (res.data.status === 200) {
+          setRow(res.data[0]?.forms);
+          setTotalData(res.data[0]?.total);
+          setPages(Math.ceil(res.data[0]?.total / dataLimit));
+        }
+      });
+  };
   useEffect(() => {
     axios
       .post(
@@ -453,7 +475,7 @@ export default function EnhancedTable() {
                 جستجو
               </Button>
             )}
-           <SearchModal/>
+            <SearchModal onSearch={onSearch} />
           </Grid>
         </Grid>
         <TableContainer sx={{ direction: "rtl" }}>
