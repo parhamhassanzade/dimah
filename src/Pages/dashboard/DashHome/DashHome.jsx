@@ -308,12 +308,13 @@ export default function EnhancedTable() {
   };
 
   const onSearch = (data) => {
-    // console.log("search data", data);
+    let DataToSend = [data];
+    // console.log("search data", DataToSend);
 
     axios
       .post(
         `${API}/admin/forms`,
-        { data },
+        { DataToSend },
         {
           headers: {
             authorization: localStorage.getItem("token"),
