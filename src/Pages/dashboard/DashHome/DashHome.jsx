@@ -308,7 +308,6 @@ export default function EnhancedTable() {
   };
 
   const onSearch = (data) => {
-    console.log(data);
     let match = [data];
 
     axios
