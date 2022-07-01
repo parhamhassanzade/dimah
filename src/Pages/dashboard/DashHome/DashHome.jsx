@@ -312,7 +312,7 @@ export default function EnhancedTable() {
 
     axios
       .post(
-        `${API}/admin/forms`,
+        `${API}/admin/forms?skip=${DataSkip}&limit=5`,
         { match },
         {
           headers: {
@@ -321,12 +321,12 @@ export default function EnhancedTable() {
         }
       )
       .then((res) => {
-        // console.log("ressearch", res);
-        if (res.data.status === 200) {
-          setRow(res.data[0]?.forms);
+        console.log("ressearch", res,res.data[0].forms);
+        // if (res.data.status === 200) {
+          setRow(res.data[0].forms);
           setTotalData(res.data[0]?.total);
           setPages(Math.ceil(res.data[0]?.total / dataLimit));
-        }
+        // }
       });
   };
   useEffect(() => {
