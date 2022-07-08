@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Form.css";
 import logo from "../../assets/img/dimah.jpeg";
 import {
@@ -34,6 +34,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { API } from "../../Utils/API";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function Form(props) {
   const [kind, setKind] = React.useState("");
@@ -209,7 +210,7 @@ function Form(props) {
       <Grid item xs={12}>
         <div className="w-100 d-flex justify-content-center align-items-center flex-wrap ">
           <span className="brandName form-title w-100 text-center mt-5 h2 ">
-            مرکز لیزر  
+            مرکز لیزر
           </span>
           {/* <img src={logo} width="80px" className="logo " alt='' /> */}
         </div>
@@ -225,8 +226,7 @@ function Form(props) {
             }}
             className="form-main"
           >
-          
-            {userfullname} عزیز خوش امدین
+            {userfullname} عزیز خوش آمدید
             <Button
               variant="contained"
               color="error"
@@ -389,6 +389,60 @@ function Form(props) {
                         />
                       }
                       label="مرد"
+                      onClick={handleSexualChange}
+                      onChange={formik.handleChange}
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+{/* //!contry */}
+              <Grid item xs={12}>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    bgcolor: "rgb(240,240,240)",
+                    borderRadius: "3px 3px 0 0",
+                    borderBottom: "0.75px solid black",
+                    pl: 1,
+                  }}
+                  fullWidth
+                >
+                  <FormLabel
+                    id="demo-row-radio-buttons-group-label"
+                    sx={{ mr: 2 }}
+                  >
+                    مرکز
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="Gender"
+                  >
+                    <FormControlLabel
+                      value="female"
+                      control={
+                        <Radio
+                          id="Gender"
+                          name="Gender"
+                          value="ilam"
+                          onChange={formik.handleChange}
+                        />
+                      }
+                      label="ایلام"
+                      onClick={handleSexualChange}
+                      onChange={formik.handleChange}
+                    />
+                    <FormControlLabel
+                      value="male"
+                      control={
+                        <Radio
+                          id="Gender"
+                          name="Gender"
+                          value="kermanshah"
+                          onChange={formik.handleChange}
+                        />
+                      }
+                      label="کرمانشاه"
                       onClick={handleSexualChange}
                       onChange={formik.handleChange}
                     />
@@ -1144,6 +1198,22 @@ function Form(props) {
                 </FormControl>
               </Grid>
               {/* ====================================== =================== ===================  */}
+              <Grid item xs={12}>
+                <FormControl sx={{ m: 1 }} fullWidth variant="filled">
+                  <InputLabel htmlFor="sessionFee" sx={{ fontFamily: "Yekan" }}>
+                    {/* هزینه جلسه(تومان) */}
+                  </InputLabel>
+                  <TextField
+                    id="filled-multiline-flexible"
+                    label="توضیحات"
+                    multiline
+                    maxRows={4}
+                    // value={value}
+                    // onChange={handleChange}
+                    variant="filled"
+                  />
+                </FormControl>
+              </Grid>
               <Grid item xs={12}>
                 <Button
                   variant="contained"

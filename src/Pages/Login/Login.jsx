@@ -1,9 +1,9 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import dimahLogo from "../../assets/img/dimah.jpeg"
+import dimahLogo from "../../assets/img/dimah.jpeg";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { API } from "../../Utils/API";
 
@@ -32,18 +32,24 @@ function Login(props) {
           draggable: true,
           progress: undefined,
         });
-        localStorage.setItem("token", res.data.token)
-        localStorage.setItem("USID", res.data.user._id)
-        localStorage.setItem("isAdmin", res.data.user.isAdmin)
-        localStorage.setItem("username", res.data.user.username)
-        localStorage.setItem("userInfo", res.data.user.firstName+res.data.user.lastName)
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("USID", res.data.user._id);
+        localStorage.setItem("isAdmin", res.data.user.isAdmin);
+        localStorage.setItem("username", res.data.user.username);
+        localStorage.setItem(
+          "userInfo",
+          res.data.user.firstName + " " + res.data.user.lastName
+        );
 
         setTimeout(() => {
-          
-          res.data.user.isAdmin === true ? history.push("/dashboard") :res.data.user.isAdmin === false ? history.push("/form") : history.push("/") 
+          res.data.user.isAdmin === true
+            ? history.push("/dashboard")
+            : res.data.user.isAdmin === false
+            ? history.push("/form")
+            : history.push("/");
         }, 3500);
       })
-      .catch(err =>{
+      .catch((err) => {
         toast.error("نام کاربری و رمز عبور اشتباه است", {
           position: "top-center",
           autoClose: 5000,
@@ -52,10 +58,10 @@ function Login(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
-      })
+        });
+      });
   };
-  
+
   const handleUsername = (e) => {
     setUsername(e.target.value);
   };
